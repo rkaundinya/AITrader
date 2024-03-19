@@ -1,0 +1,179 @@
+successfulTradeRetrieval:
+=g>
+isa findOffer
+item =item2
+player =player
+state begin
+==>
++retrieval>
+isa offer
+item2 =item2
+player =player
+success true
+=g>
+isa findOffer
+state successfulTradeRetrieval
+
+successfulTradeRetrievalSuccessful:
+=g>
+isa findOffer
+state successfulTradeRetrieval
+?retrieval>
+buffer full
+=retrieval>
+isa offer
+item1 =item1
+item2 =item2
+item1amt =item1Amt
+item2Amt =item2Amt
+success true
+==>
+~retrieval>
+=g>
+isa findOffer
+state unsuccessfulTradeRetrieval
+
+successfulTradeRetrievalFailed:
+=g>
+isa findOffer
+state successfulTradeRetrieval
+?retrieval>
+buffer empty
+state error
+==>
+=g>
+isa findOffer
+state unsuccessfulTradeRetrieval
+
+retrieveUnsuccessfulTrade:
+=g>
+isa findOffer
+state unsuccessfulTradeRetrieval
+item =item2
+player =player
+?retrieval>
+buffer empty
+state error
+==>
++retrieval>
+isa offer
+item2 =item2
+player =player
+=g>
+isa findOffer
+state unsuccessfulTradeRetrieved
+
+retrieveUnsuccessfulTradeSuccessful:
+=g>
+isa findOffer
+state unsuccessfulTradeRetrieved
+?retrieval>
+buffer full
+=retrieval>
+isa offer
+item1 =item1
+item2 =item2
+item1amt =item1Amt
+item2Amt =item2Amt
+==>
+~g>
+
+retrieveUnsuccessfulTradeFailed:
+=g>
+isa findOffer
+state unsuccessfulTradeRetrieved
+?retrieval>
+buffer empty
+state error
+==>
+~g>
+
+tradeResponse:
+=g>
+isa offer
+item1 =item1
+item1amt =item1amt
+item2 =item2
+item2amt =item2amt
+==>
++retrieval>
+isa valueEstimate
+player opponent
+item =item1
++imaginal>
+isa offer
+item1 =item1
+item1amt =item1amt
+item2 =item2
+item2amt =item2amt
+~g>
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item1
+
+opponentEstimateKnown_Item1:
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item1
+?retrieval>
+buffer full
+=retrieval>
+isa valueEstimate
+player opponent
+item =item
+=imaginal>
+isa offer
+item2 =item2
+==>
+~retrieval>
++retrieval>
+isa valueEstimate
+player opponent
+item =item2
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item2
+
+opponentEstimateUnknown_Item1:
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item1
+?retrieval>
+buffer empty
+state error
+==>
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item2
+
+opponentEstimateKnown_Item2:
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item2
+?retrieval>
+buffer full
+=retrieval>
+isa valueEstimate
+player opponent
+==>
+~g>
++g>
+isa readyToReason
+
+opponentEstimateUnknown_Item2:
+=g>
+isa evaluatingOffer
+state getOpponentEstimate_Item2
+?retrieval>
+buffer empty
+state error
+==>
+~g>
++g>
+isa readyToReason
+
+readyToReason:
+=g>
+isa readyToReason
+==>
+~g>

@@ -1,0 +1,7 @@
+tradeResponse:
+=g>
+isa trade
+item1 coal
+item2 coal
+==>
+~g>

@@ -1,0 +1,5 @@
+offer,item1,item1amt,item2,item2amt,player,success
+valueEstimate,player,item,min,max
+evaluatingOffer,state
+findOffer,item,player,state
+readyToReason
